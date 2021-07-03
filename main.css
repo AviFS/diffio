@@ -1,0 +1,29 @@
+h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+.textarea {
+    -moz-appearance: textfield-multiline;
+    -webkit-appearance: textarea;
+    border: 1px solid gray;
+    /*font: medium -moz-fixed;
+    font: -webkit-small-control;*/
+    font-family: "DejaVu Sans Mono", monospace;
+    overflow: auto;
+    padding: 2px;
+    resize: both;
+    height: 300px;
+    width: 500px;
+    background: #202020;
+}
+
+body {
+    background: #383838;
+    color: #C0C0C0;
+}
+
+#input-container {
+    display: flex;
+    justify-content: space-evenly;
+}
