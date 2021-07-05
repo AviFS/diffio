@@ -4,6 +4,14 @@
     <head>
         <script src="diffgit.js"></script>
         <script src="main.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"
+        integrity="sha512-yJSo0YTQvvGOqL2au5eH0W4K/0FI0sTJuyHjiHkh0O31Lzlb814P0fDXtuEtzOj13lOBZ9j99BjqFx4ASz9pGA=="
+        crossorigin="anonymous"></script>
+        <script src="tio-api/pako.js"></script>
+        <script src="tio-api/util.js"></script>
+        <script src="tio-api/tio.js"></script>
+
         <link rel="stylesheet" href="main.css">
         <link rel="stylesheet" href="diff-style.css">
     </head>
@@ -15,6 +23,7 @@
             <!--<textarea id="new" rows="20" cols="60">abcd</textarea>-->
         </div>
         <form onchange="updateDiffStyle();">
+        <!-- Make "line" radiobutton checked by default -->
         <input type="radio" id="line" value="line" name="diff-style">
         <label for="line">line</label>
         <input type="radio" id="block" value="block" name="diff-style">
@@ -22,7 +31,9 @@
         </form>
         <!--<textarea id="new" rows="20" cols="60">AadD</textarea>-->
         <p id="display"></p>
-        <button onclick="diff();">Click me</button>
+        <button onclick="diff();">Diff</button>
+        <button onclick="diffTioRun();">Run</button>
 
+        <div id="output"></div>
     </body>
 </html>

@@ -73,3 +73,9 @@ function diff() {
   document.getElementById("old").innerHTML = res;
 });
 }
+
+function diffTioRun() {
+   TIOrun(tew.innerHTML, "a", "brainfuck").then(
+     n=>document.getElementById("output").innerHTML = n[0]
+     );
+} 
