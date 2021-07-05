@@ -21,8 +21,11 @@ function getCookie(cname) {
 function init() {
   old_text = getCookie("old_text");
   new_text = getCookie("new_text");
+  /* get rid?
   document.getElementById("old").innerHTML = old_text;
   document.getElementById("tew").innerHTML = new_text;
+  */
+  parseLink()
   diff();
 }
 
@@ -75,7 +78,33 @@ function diff() {
 }
 
 function diffTioRun() {
-   TIOrun(tew.innerHTML, "a", "brainfuck").then(
+   TIO.run(tew.innerHTML, "a", "brainfuck").then(
      n=>document.getElementById("output").innerHTML = n[0]
      );
 } 
+
+function makeLink() {
+  newString = document.getElementById("tew").innerText;
+  oldString = document.getElementById("old").innerText;
+  var [lst, removed] = diffEncode(oldString, newString);
+  params = {
+    "unspecified": [newString, lst, removed],
+    "specified": {}
+  }
+
+  console.log(location.protocol + '//' + location.host + location.pathname + '?' + gen.makeLink(params));
+  return location.protocol + '//' + location.host + location.pathname + '?' + gen.makeLink(params);
+}
+
+function parseLink() {
+  var state = gen.parseLink(window.location.search.slice(1));
+  var [newString, lst, removed] = state["unspecified"];
+
+  oldString =  diffDecode(newString, lst, removed);
+  console.log([newString, lst, removed, oldString])
+  newer = document.getElementById("tew");
+  older = document.getElementById("old");
+
+  newer.innerText = newString;
+  older.innerText = oldString;
+}

@@ -8,15 +8,26 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"
         integrity="sha512-yJSo0YTQvvGOqL2au5eH0W4K/0FI0sTJuyHjiHkh0O31Lzlb814P0fDXtuEtzOj13lOBZ9j99BjqFx4ASz9pGA=="
         crossorigin="anonymous"></script>
-        <script src="tio-api/pako.js"></script>
-        <script src="tio-api/util.js"></script>
-        <script src="tio-api/tio.js"></script>
+
+        <script src="/Users/avi/my/code/projects/tio-api/pako.js"></script>
+        <script src="/Users/avi/my/code/projects/tio-api/tio.js"></script>
+        <script src="/Users/avi/my/code/projects/tio-api/util.js"></script>
+        <script src="/Users/avi/my/code/projects/tio-api/general.js"></script>
+        <script src="/Users/avi/my/code/projects/tio-api/tio.js"></script>
+
+        <!--
+        <script src="https://raw.githubusercontent.com/AviFS/tio-api/master/util.js"></script>
+        <script src="https://raw.githubusercontent.com/AviFS/tio-api/master/tio.js"></script>
+        -->
+
+        <script src="test.js"></script>
 
         <link rel="stylesheet" href="main.css">
         <link rel="stylesheet" href="diff-style.css">
+
     </head>
     <body onload="init();">
-        <!--<h1>Diff-io</h1>-->
+        <!-- <h1>Diff & Run</h1> -->
         <div id="input-container">
             <div placeholder="df" class="line textarea" id="old" contenteditable="true" onfocus="grayout();"  oninput="updateText('old_text');" spellcheck="false">ab</div>
             <div id="tew" class="textarea" contenteditable="true" spellcheck="false" oninput="updateText('new_text');"></div>
@@ -33,6 +44,7 @@
         <p id="display"></p>
         <button onclick="diff();">Diff</button>
         <button onclick="diffTioRun();">Run</button>
+        <button onclick="makeLink();">Link</button>
 
         <div id="output"></div>
     </body>
