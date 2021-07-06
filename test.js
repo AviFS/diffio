@@ -107,7 +107,7 @@ function diffDecode(newString, lst, removed) {
         var [kind, count] = elem;
 
         if (kind === "A") {
-            [oldString, newString] = pushPop(oldString, newString, count);
+            newString = pushPop(oldString, newString, count)[1];
         }
         if (kind === "D") {
             [oldString, removed] = pushPop(oldString, removed, count);
