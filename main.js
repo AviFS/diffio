@@ -1,5 +1,10 @@
+// Don't exactly remember what they do; something to do with the cookies I don't use anymore
+// Don't use unless you know what you're doing
 var old_text;
 var new_text;
+
+// Use these to get textbox values instead// var oldText = document.getElementById("tew").innerText.trimEnd();
+// var newText = document.getElementById("old").innerText.trimEnd();
 
 
 function getCookie(cname) {
@@ -26,16 +31,16 @@ function init() {
   document.getElementById("tew").innerHTML = new_text;
   */
   parseLink()
-  diff();
+  diffIt();
 }
 
 function updateText(textbox) {
   if (textbox === "old_text") {
-    old_text = document.getElementById("old").innerHTML;
+    old_text = document.getElementById("old").innerText;
     document.cookie = `old_text = ${old_text};`;
   }
   else if (textbox === "new_text") {
-    new_text = document.getElementById("tew").innerHTML;
+    new_text = document.getElementById("tew").innerText;
     document.cookie = `new_text = ${new_text};`;
   }
   else {
@@ -49,24 +54,37 @@ function grayout() {
   nww.innerHTML = old_text;
 }
 
-function getDiffStyle() {
-  var radios = document.getElementsByName('diff-style');
+function getRadioButtonValue(name) {
+  var radios = document.getElementsByName(name);
   for (var i = 0; i < radios.length; i++) {
     if (radios[i].checked) { return radios[i].value; }
   }
 }
 
 function updateDiffStyle() {
-  const style = getDiffStyle();
-  document.getElementById("old").className = `textarea ${getDiffStyle()}`;
+  var style = getRadioButtonValue("diff-style");
+  document.getElementById("old").className = `textarea ${style}`;
+  diffIt();
 }
 
-function diff() {
+function updateDiffKind() {
+  // Recall 'diffIt()', it'll take care of doing the right kind
+  diffIt();
+}
+
+function diffIt() {
   var nww = document.getElementById("tew");
   var old = document.getElementById("old");
+  var kind = getRadioButtonValue("diff-kind");
 
-  res = ""
-  const diff = diffChars(old_text, nww.innerHTML);
+  var oldText = document.getElementById("tew").innerText.trimEnd();
+  var newText = document.getElementById("old").innerText.trimEnd()
+
+  res = "";
+  var diff;
+  diff = diffChars(oldText, newText);
+  // if (kind === "byCharacter") { diff = diffChars(old_text, nww.innerHTML); }
+  //else { return; }
   diff.forEach((part) => {
   // green for additions, red for deletions
   // grey for common parts
@@ -97,14 +115,34 @@ function makeLink() {
 }
 
 function parseLink() {
-  var state = gen.parseLink(window.location.search.slice(1));
-  var [newString, lst, removed] = state["unspecified"];
+  var search = window.location.search;
+  var hash = window.location.hash;
 
-  oldString =  diffDecode(newString, lst, removed);
-  console.log([newString, lst, removed, oldString])
-  newer = document.getElementById("tew");
-  older = document.getElementById("old");
 
-  newer.innerText = newString;
-  older.innerText = oldString;
+  // var oldText = document.getElementById("tew").innerText.trimEnd();
+  // var newText = document.getElementById("old").innerText.trimEnd()
+
+  console.log(hash);
+  if (search === "" && hash === "") { return; }
+  if (search.slice(0,1) === "?") {
+    search = search.slice(1);
+    state = gen.parseLink(search);
+    var [newString, lst, removed] = state["unspecified"];
+
+    oldString =  diffDecode(newString, lst, removed);
+    console.log([newString, lst, removed, oldString])
+
+    newer.innerText = newString;
+    older.innerText = oldString;
+  }
+
+  if (hash.slice(0,2) === "##") {
+    hash = hash.slice(2);
+    state = TIO.parseLink(hash); 
+    console.log(state);
+
+    newer.innerHTML = state["code"];
+    older.innerHTML = state["code"];
+  }
+  return;
 }

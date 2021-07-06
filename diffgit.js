@@ -24,8 +24,10 @@ Diff.prototype = {
     oldString = this.castInput(oldString);
     newString = this.castInput(newString);
 
-    oldString = this.removeEmpty(this.tokenize(oldString));
-    newString = this.removeEmpty(this.tokenize(newString));
+    if (!Array.isArray(oldString) && !Array.isArray(newString)) {
+      oldString = this.removeEmpty(this.tokenize(oldString));
+      newString = this.removeEmpty(this.tokenize(newString));
+    }
 
     let newLen = newString.length, oldLen = oldString.length;
     let editLength = 1;
