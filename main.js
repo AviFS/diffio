@@ -110,14 +110,16 @@ function diffTioRun() {
 function makeLink() {
   newString = document.getElementById("tew").innerText;
   oldString = document.getElementById("old").innerText;
-  var [lst, removed] = diffEncode(old_text, newString); // old_text is crucial here
+  var [lst, removed] = diffEncode(old_text, newString);
   params = {
     "unspecified": [newString, lst, removed],
     "specified": {}
   }
-
-  console.log(location.protocol + '//' + location.host + location.pathname + '?' + gen.makeLink(params));
-  return location.protocol + '//' + location.host + location.pathname + '?' + gen.makeLink(params);
+  
+  link = location.protocol + '//' + location.host + location.pathname + '?' + gen.makeLink(params)
+  window.prompt("Copy to clipboard: Cmd+C & Enter", link);
+  console.log(link);
+  return link;
 }
 
 function parseLink() {
