@@ -110,7 +110,7 @@ function diffTioRun() {
 function makeLink() {
   newString = document.getElementById("tew").innerText;
   oldString = document.getElementById("old").innerText;
-  var [lst, removed] = diffEncode(oldString, newString);
+  var [lst, removed] = diffEncode(old_text, newString); // old_text is crucial here
   params = {
     "unspecified": [newString, lst, removed],
     "specified": {}
