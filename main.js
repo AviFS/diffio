@@ -119,8 +119,8 @@ function parseLink() {
   var hash = window.location.hash;
 
 
-  // var oldText = document.getElementById("tew").innerText.trimEnd();
-  // var newText = document.getElementById("old").innerText.trimEnd()
+  var newer = document.getElementById("tew");
+  var older = document.getElementById("old");
 
   console.log(hash);
   if (search === "" && hash === "") { return; }
