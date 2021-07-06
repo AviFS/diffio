@@ -1,5 +1,7 @@
 // Don't exactly remember what they do; something to do with the cookies I don't use anymore
 // Don't use unless you know what you're doing
+// EDIT: Actually old_text is important because it stores what the real value of the old text is when the innerText
+// is all screwed up displaying the diff. Think we can get rid of new_text
 var old_text;
 var new_text;
 
@@ -24,8 +26,12 @@ function getCookie(cname) {
 }
 
 function init() {
+  // Commented out because is now getting in the way
+  // TODO: Fix this cookie stuff and decide if I even need it
+
   old_text = getCookie("old_text");
   new_text = getCookie("new_text");
+
   /* get rid?
   document.getElementById("old").innerHTML = old_text;
   document.getElementById("tew").innerHTML = new_text;
@@ -132,6 +138,9 @@ function parseLink() {
     oldString =  diffDecode(newString, lst, removed);
     console.log([newString, lst, removed, oldString])
 
+    new_text = newString;
+    old_text = oldString;
+
     newer.innerText = newString;
     older.innerText = oldString;
   }
@@ -140,6 +149,10 @@ function parseLink() {
     hash = hash.slice(2);
     state = TIO.parseLink(hash); 
     console.log(state);
+
+
+    old_text = state["code"];
+    new_text = state["code"];
 
     newer.innerHTML = state["code"];
     older.innerHTML = state["code"];
