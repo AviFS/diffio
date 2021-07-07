@@ -83,8 +83,8 @@ function diffIt() {
   var old = document.getElementById("old");
   var kind = getRadioButtonValue("diff-kind");
 
-  var oldText = document.getElementById("tew").innerText.trimEnd();
-  var newText = document.getElementById("old").innerText.trimEnd()
+  var oldText = document.getElementById("old").innerText.trimEnd();
+  var newText = document.getElementById("tew").innerText.trimEnd()
 
   res = "";
   var diff;
