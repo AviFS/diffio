@@ -28,8 +28,8 @@
     <body onload="init();">
         <!-- <h1>Diff & Run</h1> -->
         <div id="input-container">
-            <div placeholder="df" class="line textarea" id="old" contenteditable="true" onfocus="grayout();"  oninput="updateText('old_text');" spellcheck="false">ab</div>
-            <div id="tew" class="textarea" contenteditable="true" spellcheck="false" oninput="updateText('new_text');"></div>
+            <div placeholder="df" class="line textarea" id="oldText" contenteditable="true" onfocus="grayout();"  oninput="updateText('old_text');" spellcheck="false">ab</div>
+            <div id="newText" class="textarea" contenteditable="true" spellcheck="false" oninput="updateText('new_text');"></div>
             <!--<textarea id="new" rows="20" cols="60">abcd</textarea>-->
         </div>
         <form onchange="updateDiffStyle();">

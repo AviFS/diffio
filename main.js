@@ -5,8 +5,10 @@
 var old_text;
 var new_text;
 
-// Use these to get textbox values instead// var oldText = document.getElementById("tew").innerText.trimEnd();
-// var newText = document.getElementById("old").innerText.trimEnd();
+let oldText; // = document.getElementById("oldText");
+let newText; // = document.getElementById("newText");
+// Use these to get textbox values instead// var oldText = document.getElementById("new").innerText.trimEnd();
+// var newText = document.getElementById("oldText").innerText.trimEnd();
 
 
 function getCookie(cname) {
@@ -26,6 +28,8 @@ function getCookie(cname) {
 }
 
 function init() {
+  oldText = document.getElementById("oldText");
+  newText = document.getElementById("newText");
   // Commented out because is now getting in the way
   // TODO: Fix this cookie stuff and decide if I even need it
 
@@ -33,8 +37,8 @@ function init() {
   new_text = getCookie("new_text");
 
   /* get rid?
-  document.getElementById("old").innerHTML = old_text;
-  document.getElementById("tew").innerHTML = new_text;
+  document.getElementById("oldText").innerHTML = old_text;
+  document.getElementById("newText").innerHTML = new_text;
   */
   parseLink()
   diffIt();
@@ -42,11 +46,11 @@ function init() {
 
 function updateText(textbox) {
   if (textbox === "old_text") {
-    old_text = document.getElementById("old").innerText;
+    old_text = oldText.innerText;
     document.cookie = `old_text = ${old_text};`;
   }
   else if (textbox === "new_text") {
-    new_text = document.getElementById("tew").innerText;
+    new_text = newText.innerText;
     document.cookie = `new_text = ${new_text};`;
   }
   else {
@@ -55,7 +59,7 @@ function updateText(textbox) {
 }
 
 function grayout() {
-  var nww = document.getElementById("old");
+  var nww = document.getElementById("oldText");
   nww.focus();
   nww.innerHTML = old_text;
 }
@@ -69,7 +73,7 @@ function getRadioButtonValue(name) {
 
 function updateDiffStyle() {
   var style = getRadioButtonValue("diff-style");
-  document.getElementById("old").className = `textarea ${style}`;
+  document.getElementById("oldText").className = `textarea ${style}`;
   diffIt();
 }
 
@@ -79,16 +83,12 @@ function updateDiffKind() {
 }
 
 function diffIt() {
-  var nww = document.getElementById("tew");
-  var old = document.getElementById("old");
-  var kind = getRadioButtonValue("diff-kind");
-
-  var oldText = document.getElementById("old").innerText.trimEnd();
-  var newText = document.getElementById("tew").innerText.trimEnd()
+  var oldTextValue = oldText.innerText.trimEnd();
+  var newTextValue = newText.innerText.trimEnd()
 
   res = "";
   var diff;
-  diff = diffChars(oldText, newText);
+  diff = diffChars(oldTextValue, newTextValue);
   // if (kind === "byCharacter") { diff = diffChars(old_text, nww.innerHTML); }
   //else { return; }
   diff.forEach((part) => {
@@ -97,22 +97,22 @@ function diffIt() {
   const color = part.added ? 'green' :
     part.removed ? 'red' : 'grey';
   res += `<span class="${color}">${part.value}</span>`;
-  document.getElementById("old").innerHTML = res;
+  document.getElementById("oldText").innerHTML = res;
 });
 }
 
 function diffTioRun() {
-   TIO.run(tew.innerHTML, "a", "brainfuck").then(
-     n=>document.getElementById("output").innerHTML = n[0]
-     );
+   TIO.run(newText.innerText, "a", "brainfuck").then(n=>
+      document.getElementById("output").innerText = n[0]===""?"No output.":n[0]
+    );
 } 
 
 function makeLink() {
-  newString = document.getElementById("tew").innerText;
-  oldString = document.getElementById("old").innerText;
-  var [lst, removed] = diffEncode(old_text, newString);
+  var newTextValue = newText.innerText.trimEnd()
+  
+  var [lst, removed] = diffEncode(old_text, newTextValue);
   params = {
-    "unspecified": [newString, lst, removed],
+    "unspecified": [newTextValue, lst, removed],
     "specified": {}
   }
   
@@ -125,10 +125,6 @@ function makeLink() {
 function parseLink() {
   var search = window.location.search;
   var hash = window.location.hash;
-
-
-  var newer = document.getElementById("tew");
-  var older = document.getElementById("old");
 
   console.log(hash);
   if (search === "" && hash === "") { return; }
@@ -143,8 +139,8 @@ function parseLink() {
     new_text = newString;
     old_text = oldString;
 
-    newer.innerText = newString;
-    older.innerText = oldString;
+    newText.innerText = newString;
+    oldText.innerText = oldString;
   }
 
   if (hash.slice(0,2) === "##") {
@@ -156,8 +152,8 @@ function parseLink() {
     old_text = state["code"];
     new_text = state["code"];
 
-    newer.innerHTML = state["code"];
-    older.innerHTML = state["code"];
+    newText.innerHTML = state["code"];
+    oldText.innerHTML = state["code"];
   }
   return;
 }
